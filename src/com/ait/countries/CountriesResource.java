@@ -33,17 +33,13 @@ public class CountriesResource
 		System.out.println("creating new entry ...");
 		return dao.create(countries);
 	}
-	
-	
-	
-	
+		
 	@DELETE @Path("{id}")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public void remove(@PathParam("id") int id) 
 	{
 		dao.remove(id);
 	}
-
 
 	@GET @Path("{id}")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
@@ -63,14 +59,14 @@ public class CountriesResource
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public List<Countries> findByPrefix(@PathParam("query") String query) {
 		System.out.println("findByPrefix: " + query);
-		return dao.findByPrefix(query);
-		
+		return dao.findByPrefix(query);		
 	}
 	
 	@PUT @Path("{id}")
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public Countries update(Countries countries) 
+	
 	{
 		System.out.println("Updating_Country_Record: " + countries.getCountry());
 		dao.update(countries);
