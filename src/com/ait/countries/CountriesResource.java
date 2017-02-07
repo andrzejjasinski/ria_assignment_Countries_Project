@@ -35,18 +35,12 @@ public class CountriesResource
 	}
 	
 	
-	//@PUT @Path("{id}")
-	//@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-	//@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	//public Countries update(Countries countries) {
-	//	System.out.println("Updating Countries: " + countries.getCountry());
-	//	dao.update(countries);
-	//	return countries;
-	//}
+	
 	
 	@DELETE @Path("{id}")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public void remove(@PathParam("id") int id) {
+	public void remove(@PathParam("id") int id) 
+	{
 		dao.remove(id);
 	}
 
@@ -71,5 +65,15 @@ public class CountriesResource
 		System.out.println("findByPrefix: " + query);
 		return dao.findByPrefix(query);
 		
+	}
+	
+	@PUT @Path("{id}")
+	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public Countries update(Countries countries) 
+	{
+		System.out.println("Updating_Country_Record: " + countries.getCountry());
+		dao.update(countries);
+		return countries;
 	}
 }

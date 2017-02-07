@@ -11,7 +11,8 @@ import com.mysql.jdbc.PreparedStatement;
 
 public class CountriesDAO {
 
-	    public List<Countries> findAll() {
+	    public List<Countries> findAll() 
+	    {
 	        List<Countries> list = new ArrayList<Countries>();
 	        Connection c = null;
 	    	String sql = "SELECT * FROM countries_data ORDER BY country";
@@ -60,7 +61,7 @@ public class CountriesDAO {
 	        try {
 	            c = ConnectionHelper.getConnection();
 	            ps = (PreparedStatement) c.prepareStatement("INSERT INTO countries_data (country, phone_prefix, flag, population, capital_city, geo_location, commentary) VALUES (?, ?, ?, ?, ?, ?, ?)",
-	                new String[] { "ID" });
+	                new String[] { "id" });
 	            ps.setString(1, countries.getCountry());
 	            ps.setString(2, countries.getPhone_prefix());
 	            ps.setString(3, countries.getFlag());
@@ -83,7 +84,8 @@ public class CountriesDAO {
 	        return countries;
 	    }
 	    
-	    public Countries update(Countries countries) {
+	    public Countries update(Countries countries) 
+	    {
 	        Connection c = null;
 	        try {
 	            c = ConnectionHelper.getConnection();
