@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+//import static org.junit.Assert.*;
+//import org.junit.Test;
 
 import com.mysql.jdbc.PreparedStatement;
 
@@ -31,30 +33,7 @@ public class CountriesDAO {
 			}
 	        return list;
 	    }
-	    
-	    
-	    public Countries findById(int id) 
-	    {
-	    	String sql = "SELECT * FROM countries_data WHERE id = ?";
-	        Countries countries = null;
-	        Connection c = null;
-	        try {
-	            c = ConnectionHelper.getConnection();
-	            PreparedStatement ps = (PreparedStatement) c.prepareStatement(sql);
-	            ps.setInt(1, id);
-	            ResultSet rs = ps.executeQuery();
-	            if (rs.next()) {
-	                countries = processRow(rs);
-	            }
-	        } catch (Exception e) {
-	            e.printStackTrace();
-	            throw new RuntimeException(e);
-			} finally {
-				ConnectionHelper.close(c);
-			}
-	        return countries;
-	    }
-	    
+	      
 	    public Countries create(Countries countries) {
 	        Connection c = null;
 	        PreparedStatement ps = null;
@@ -99,7 +78,8 @@ public class CountriesDAO {
 	            ps.setString(7, countries.getCommentary());
 	            ps.setInt(8, countries.getId());
 	            ps.executeUpdate();
-	        } catch (SQLException e) {
+	        } catch (SQLException e)
+	        {
 	            e.printStackTrace();
 	            throw new RuntimeException(e);
 			} finally {
@@ -125,6 +105,27 @@ public class CountriesDAO {
 			}
 	    }
 	    
+	    public Countries findById(int id) 
+	    {
+	    	String sql = "SELECT * FROM countries_data WHERE id = ?";
+	        Countries countries = null;
+	        Connection c = null;
+	        try {
+	            c = ConnectionHelper.getConnection();
+	            PreparedStatement ps = (PreparedStatement) c.prepareStatement(sql);
+	            ps.setInt(1, id);
+	            ResultSet rs = ps.executeQuery();
+	            if (rs.next()) {
+	                countries = processRow(rs);
+	            }
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	            throw new RuntimeException(e);
+			} finally {
+				ConnectionHelper.close(c);
+			}
+	        return countries;
+	    }
 	    public List<Countries> findByCountry(String country) {
 	        List<Countries> list = new ArrayList<Countries>();
 	        Connection c = null;
@@ -170,6 +171,8 @@ public class CountriesDAO {
 			}
 	        return list;
 	    }
+	    
+	    
 	    
 	    protected Countries processRow(ResultSet rs) throws SQLException {
 	    	Countries countries = new Countries();

@@ -14,8 +14,8 @@ import javax.ws.rs.PathParam;
 
 @Path("/countries")
 public class CountriesResource 
-{
 
+{
 	CountriesDAO dao = new CountriesDAO();
 	
 	@GET
@@ -23,6 +23,30 @@ public class CountriesResource
 	public List<Countries> findAll() {
 		System.out.println("findAll");
 		return dao.findAll();
+	}
+	
+	@PUT @Path("{id}")
+	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public Countries update(Countries countries) 	
+	{
+		System.out.println("Updating_Country_Record: " + countries.getCountry());
+		dao.update(countries);
+		return countries;
+	}
+	
+	@GET @Path("search/{query}")
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public List<Countries> findByCountry(@PathParam("query") String query) {
+		System.out.println("findByName: " + query);
+		return dao.findByCountry(query);
+	}
+	
+	@GET @Path("{id}")
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public Countries findById(@PathParam("id") String id) {
+		System.out.println("findById " + id);
+		return dao.findById(Integer.parseInt(id));
 	}
 	
 	@POST
@@ -34,27 +58,6 @@ public class CountriesResource
 		return dao.create(countries);
 	}
 		
-	@DELETE @Path("{id}")
-	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public void remove(@PathParam("id") int id) 
-	{
-		dao.remove(id);
-	}
-
-	@GET @Path("{id}")
-	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public Countries findById(@PathParam("id") String id) {
-		System.out.println("findById " + id);
-		return dao.findById(Integer.parseInt(id));
-	}
-	
-	@GET @Path("search/{query}")
-	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public List<Countries> findByCountry(@PathParam("query") String query) {
-		System.out.println("findByName: " + query);
-		return dao.findByCountry(query);
-	}
-	
 	@GET @Path("prefix/{query}")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public List<Countries> findByPrefix(@PathParam("query") String query) {
@@ -62,14 +65,12 @@ public class CountriesResource
 		return dao.findByPrefix(query);		
 	}
 	
-	@PUT @Path("{id}")
-	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	@DELETE @Path("{id}")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public Countries update(Countries countries) 
-	
+	public void remove(@PathParam("id") int id) 
 	{
-		System.out.println("Updating_Country_Record: " + countries.getCountry());
-		dao.update(countries);
-		return countries;
+		dao.remove(id);
 	}
+
+	
 }

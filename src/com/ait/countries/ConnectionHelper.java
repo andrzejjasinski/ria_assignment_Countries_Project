@@ -11,7 +11,6 @@ import java.util.Scanner;
 
 public class ConnectionHelper
 
-
 {	
 	String ip_string;
 	public String getIP()	
@@ -36,7 +35,7 @@ public class ConnectionHelper
 	private String url ="jdbc:mysql://"+(getIP())+"/countries_project_2017?user=CountriesProject&password=MSc_2017";
 	private static ConnectionHelper instance;
 
-	private ConnectionHelper()
+	ConnectionHelper()
 	{		
     	String driver = null;
 		try 
